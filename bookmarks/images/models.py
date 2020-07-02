@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.text import slugify
 
 class Image(models.Model):
   user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='images_created', on_delete=models.CASCADE)
@@ -15,6 +16,6 @@ class Image(models.Model):
     return self.title
 
   def save(self, *args, **kwargs):
-    if not  self.slug:
+    if not self.slug:
       self.slug = slugify(self.title)
-    super().save(*args, **kwargs)  
+    super().save(*args, **kwargs)
